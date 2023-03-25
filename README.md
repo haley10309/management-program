@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+# 고객 관리 시스템 연습용입니다.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
