@@ -8,6 +8,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import { withStyles } from '@material-ui/styles';
+import CircularProgress from '@mui/material/CircularProgress';
+
+
 
 const styles = theme => ({
   root: {
@@ -16,17 +19,20 @@ const styles = theme => ({
   },
   table:{
     minWidth: 1080
-  }
+  },
+  
 })
 
 
 class App extends Component {
   // server에서 데이터를 받아오는 방법
   state = {//component 내에서 변경될 수 있는 변수
-    customers: ""
+    customers: "",
+    completed: 0
   }
 
   componentDidMount(){//데이터를 받아오는 작업 , 모든 컴포넌트 준비 완료 후 
+    this.timer = setInterval(this.progress, 20); //0.02초 마다 progress 함수가 재생
     this.callApi()
       .then(res => this.setState({customers : res}))
       .catch(err => console.log(err))
@@ -40,7 +46,10 @@ class App extends Component {
     return body;
 
   }
-
+  progress =() => {
+    const { completed } = this.state;
+    this.setState({ completed : completed >= 100 ? 0 : completed +1 });
+  }
 
   render(){
     const { classes } = this.props;
@@ -62,7 +71,13 @@ class App extends Component {
           {/* 서버에서 -> state에서 데이터 받으면 -> Customer에 저장 */}
           {this.state.customers? this.state.customers.map(c =>  { 
             return ( <Customer  key = {c.id } id = {c.id } image = {c.image} name ={c.name } birthday ={c.birthday}  gender ={c.gender} job ={c.job}/>);
-            }): ""}
+            }): 
+            <TableRow>
+              <TableCell colSpan = "6" align = "center">
+                <CircularProgress className={classes.progress} variant = "determainate" value= {this.state.completed}/>
+                </TableCell>
+                </TableRow>
+                }
         
           </TableBody>
         </Table>
