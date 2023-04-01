@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import { withStyles } from '@material-ui/styles';
 import CircularProgress from '@mui/material/CircularProgress';
+import Navbar from './Navbar.js';
 
 
 
@@ -54,19 +55,24 @@ class App extends Component {
   render(){
     const { classes } = this.props;
     return (
+      
       <Paper className = {classes.root}>
+         <Navbar></Navbar>
         <Table className= {classes.table}>
+       
           <TableHead>
             <TableRow> 
+            
               <TableCell>번호</TableCell>
               <TableCell>이미지</TableCell>
               <TableCell>이름</TableCell>
               <TableCell>생년월일</TableCell>
               <TableCell>성별</TableCell>
               <TableCell>직업</TableCell>
+              
             </TableRow>
           </TableHead>
-
+          
           <TableBody>
           {/* 서버에서 -> state에서 데이터 받으면 -> Customer에 저장 */}
           {this.state.customers? this.state.customers.map(c =>  { 
@@ -80,8 +86,10 @@ class App extends Component {
                 }
         
           </TableBody>
+          
         </Table>
       </Paper>
+      
     );
   }
 }
