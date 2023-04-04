@@ -10,7 +10,10 @@ import TableCell from '@material-ui/core/TableCell'
 import { withStyles } from '@material-ui/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 import Navbar from './Navbar.js';
-
+import About from './pages/About';
+import Pricing from './pages/Pricing';
+import { BrowserRouter,Route, Routes } from "react-router-dom";
+import Home from './pages/Home';
 
 
 const styles = theme => ({
@@ -23,8 +26,6 @@ const styles = theme => ({
   },
   
 })
-
-
 class App extends Component {
   // server에서 데이터를 받아오는 방법
   state = {//component 내에서 변경될 수 있는 변수
@@ -54,10 +55,16 @@ class App extends Component {
 
   render(){
     const { classes } = this.props;
+
+    
+
+
     return (
       
       <Paper className = {classes.root}>
-         <Navbar></Navbar>
+        
+      <Navbar/>
+     
         <Table className= {classes.table}>
        
           <TableHead>
@@ -91,7 +98,15 @@ class App extends Component {
       </Paper>
       
     );
+
+
+    
   }
+
+
+  
+
 }
+
 
 export default withStyles(styles)(App);

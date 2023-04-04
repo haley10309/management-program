@@ -2,6 +2,9 @@
 
 
 export default function Navbar(){
+
+    const path = window.location.pathname
+
     return(
         <nav className="nav">
             <a href="/" className="site-title">
