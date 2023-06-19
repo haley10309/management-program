@@ -39,7 +39,7 @@ class App extends Component {
       .then(res => this.setState({customers : res}))
       .catch(err => console.log(err))
 
-    console.log('얍');
+    console.log('얍'); 
   }
 
   callApi = async () => { //비동기적으로 데이터 가져옴
