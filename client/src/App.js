@@ -7,23 +7,29 @@ import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-import { withStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@mui/material/CircularProgress";
 import Navbar from "./Navbar.js";
 import About from "./pages/About";
 import Pricing from "./pages/Pricing";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
+//import { Theme, makeStyles } from '@material-ui/core/styles/';
 
-const styles = (theme) => ({
+
+const styles = ((theme) => ({
   root: {
     width: "100%",
     overflowX: "auto",
+    marginTop: theme.spacing.unit * 3
   },
   table: {
     minWidth: 1080,
   },
-});
+  progress: {
+    margin: theme.spacing.unit * 2
+  }
+}));
 class App extends Component {
   // server에서 데이터를 받아오는 방법
   state = {

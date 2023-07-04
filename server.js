@@ -14,7 +14,7 @@ app.get('/api/customers', (req, res) => {
     res.send([
         {
             'id': 1,
-            'image' : 'https://placeimg.com/64/64/4',
+            'image' : 'https://placeimg.com/64/64/any',
             'name' : '김민수',
             'birthday' : '961222',
             'gender' : '남자',
@@ -22,7 +22,7 @@ app.get('/api/customers', (req, res) => {
           },
           {
             'id': 2,
-            'image' : 'https://placeimg.com/64/64/9',
+            'image' : 'https://placeimg.com/64/64/any',
             'name' : '박현규',
             'birthday' : '930412',
             'gender' : '남자',
@@ -30,7 +30,7 @@ app.get('/api/customers', (req, res) => {
           },
           {
             'id': 3, 
-            'image' : 'https://placeimg.com/64/64/8',
+            'image' : 'https://placeimg.com/64/64/any',
             'name' : '한연수',
             'birthday' : '090822',
             'gender' : '여자',
