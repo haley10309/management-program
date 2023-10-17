@@ -15,21 +15,21 @@ import Pricing from "./pages/Pricing";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 //import { Theme, makeStyles } from '@material-ui/core/styles/';
+import CustomerAdd from "./components/CustomerAdd";
 
-
-const styles = ((theme) => ({
+const styles = (theme) => ({
   root: {
     width: "100%",
     overflowX: "auto",
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 3,
   },
   table: {
     minWidth: 1080,
   },
   progress: {
-    margin: theme.spacing.unit * 2
-  }
-}));
+    margin: theme.spacing.unit * 2,
+  },
+});
 class App extends Component {
   // server에서 데이터를 받아오는 방법
   state = {
@@ -45,7 +45,7 @@ class App extends Component {
       .then((res) => this.setState({ customers: res }))
       .catch((err) => console.log(err));
 
-    console.log("얍");
+    
   }
 
   callApi = async () => {
@@ -63,51 +63,55 @@ class App extends Component {
     const { classes } = this.props;
 
     return (
-      <Paper className={classes.root}>
-        <Navbar />
+      <div>
+        <Paper className={classes.root}>
+          <Navbar />
 
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell>번호</TableCell>
-              <TableCell>이미지</TableCell>
-              <TableCell>이름</TableCell>
-              <TableCell>생년월일</TableCell>
-              <TableCell>성별</TableCell>
-              <TableCell>직업</TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {/* 서버에서 -> state에서 데이터 받으면 -> Customer에 저장 */}
-            {this.state.customers ? ( // state에 customers에 데이터가 있으면
-              this.state.customers.map((c) => {
-                return (
-                  <Customer
-                    key={c.id}
-                    id={c.id}
-                    image={c.image}
-                    name={c.name}
-                    birthday={c.birthday}
-                    gender={c.gender}
-                    job={c.job}
-                  />
-                );
-              })
-            ) : (// state에 customers에 데이터가 없으면
+          <Table className={classes.table}>
+            <TableHead>
               <TableRow>
-                <TableCell colSpan="6" align="center">
-                  <CircularProgress
-                    className={classes.progress}
-                    variant="determainate"
-                    value={this.state.completed}
-                  />
-                </TableCell>
+                <TableCell>번호</TableCell>
+                <TableCell>이미지</TableCell>
+                <TableCell>이름</TableCell>
+                <TableCell>생년월일</TableCell>
+                <TableCell>성별</TableCell>
+                <TableCell>직업</TableCell>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </Paper>
+            </TableHead>
+
+            <TableBody>
+              {/* 서버에서 -> state에서 데이터 받으면 -> Customer에 저장 */}
+              {this.state.customers ? ( // state에 customers에 데이터가 있으면
+                this.state.customers.map((c) => {
+                  return (
+                    <Customer
+                      key={c.id}
+                      id={c.id}
+                      image={c.image}
+                      name={c.name}
+                      birthday={c.birthday}
+                      gender={c.gender}
+                      job={c.job}
+                    />
+                  );
+                })
+              ) : (
+                // state에 customers에 데이터가 없으면
+                <TableRow>
+                  <TableCell colSpan="6" align="center">
+                    <CircularProgress
+                      className={classes.progress}
+                      variant="determainate"
+                      value={this.state.completed}
+                    />
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </Paper>
+        <CustomerAdd/>
+      </div>
     );
   }
 }
