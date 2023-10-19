@@ -32,7 +32,7 @@ connection.connect(function(err){
   }
 })
 
-const multer = require("multer");
+const multer = require("multer"); // 중복되지 않는 이름으로 자동으로 배정
 const upload = multer({ dest: './upload' });
 
 

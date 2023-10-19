@@ -18,6 +18,7 @@ class CustomerAdd extends React.Component {
     this.addCustomer()
       .then((response) => {
         console.log(response.data);
+        this.props.stateRefresh(); //비동기적 -> 순서 보장 x
       })
       .catch((err) => console.log("handle form submit 부분 실패 ", err));
 
@@ -30,7 +31,9 @@ class CustomerAdd extends React.Component {
       job: "",
       fileName: "",
     });
-    window.location.reload();
+
+    //전체 페이지를 재 로드 시키는 것은 비효율적이므로 props를 이용해서 부모 컴포넌트가 자식 컴포넌트에 정보를 넘겨주어야 함.
+    //따라서 데이터 베이스 정보를 다시 가져오는 것이 나음.
   };
   handleFileChange = (e) => {
     this.setState({

@@ -32,10 +32,22 @@ const styles = (theme) => ({
 });
 class App extends Component {
   // server에서 데이터를 받아오는 방법
-  state = {
-    //component 내에서 변경될 수 있는 변수
-    customers: "",
-    completed: 0,
+  constructor(props) {
+    //고객 데이터 다시 받아오는 함수
+    super(props);
+    this.state = {
+      customers: "",
+      completed: 0,
+    };
+    this.callApi()
+      .then((res) => this.setState({ customers: res }))
+      .catch((err) => console.log(err));
+  }
+  stateRefresh = () => {
+    this.setState({
+      customers: "",
+      completed: 0,
+    });
   };
 
   componentDidMount() {
@@ -44,8 +56,6 @@ class App extends Component {
     this.callApi()
       .then((res) => this.setState({ customers: res }))
       .catch((err) => console.log(err));
-
-    
   }
 
   callApi = async () => {
@@ -110,7 +120,8 @@ class App extends Component {
             </TableBody>
           </Table>
         </Paper>
-        <CustomerAdd/>
+        <CustomerAdd stateRefresh={this.stateRefresh}/> 
+        
       </div>
     );
   }
