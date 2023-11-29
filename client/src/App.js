@@ -42,12 +42,17 @@ class App extends Component {
     this.callApi()
       .then((res) => this.setState({ customers: res }))
       .catch((err) => console.log(err));
+
+    this.stateRefresh = this.stateRefresh.bind(this);
   }
   stateRefresh = () => {
     this.setState({
-      customers: "",
+      customers: '',
       completed: 0,
     });
+    this.callApi()
+      .then((res) => this.setState({ customers: res }))
+      .catch((err) => console.log(err));
   };
 
   componentDidMount() {
@@ -86,6 +91,7 @@ class App extends Component {
                 <TableCell>생년월일</TableCell>
                 <TableCell>성별</TableCell>
                 <TableCell>직업</TableCell>
+                <TableCell>설정</TableCell>
               </TableRow>
             </TableHead>
 
@@ -95,6 +101,7 @@ class App extends Component {
                 this.state.customers.map((c) => {
                   return (
                     <Customer
+                      stateRefresh={this.stateRefresh}
                       key={c.id}
                       id={c.id}
                       image={c.image}
@@ -120,8 +127,7 @@ class App extends Component {
             </TableBody>
           </Table>
         </Paper>
-        <CustomerAdd stateRefresh={this.stateRefresh}/> 
-        
+        <CustomerAdd stateRefresh={this.stateRefresh} />
       </div>
     );
   }

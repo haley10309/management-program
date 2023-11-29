@@ -24,31 +24,32 @@ const connection = mysql.createConnection({
 });
 //connection.connect();
 
-connection.connect(function(err){
-  if(err){
-    console.log(err)
-  }else{
-    console.log("SQL 연결 성공")
+connection.connect(function (err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("SQL 연결 성공");
   }
-})
+});
 
 const multer = require("multer"); // 중복되지 않는 이름으로 자동으로 배정
-const upload = multer({ dest: './upload' });
-
+const upload = multer({ dest: "./upload" });
 
 // 사용자 입장에서 볼수 있는 api에 출력
-app.get('/api/customers', (req, res) => {
-  connection.query("SELECT * FROM management.CUSTOMER", (err, rows, fields) => {
-    res.send(rows);
-  });
+app.get("/api/customers", (req, res) => {
+  connection.query(
+    "SELECT * FROM management.CUSTOMER WHERE isDeleted  = 0",
+    (err, rows, fields) => {
+      res.send(rows);
+    }
+  );
 });
 app.use(express.urlencoded({ extended: true }));
-app.use('/image', express.static('./upload'));
+app.use("/image", express.static("./upload"));
 
-
-app.post('/api/customers', upload.single('image'), (req, res) => {
+app.post("/api/customers", upload.single("image"), (req, res) => {
   console.log("Received data:", req.body); // 포스트가 되었는지 확인
-  let sql = 'INSERT INTO CUSTOMER VALUES (null,?,?,?,?,?)';
+  let sql = "INSERT INTO CUSTOMER VALUES (null,?,?,?,?,?,now(),0)";
   let image = "http://localhost:5000/image/" + req.file.filename;
   let name = req.body.name; // Use req.body to access the parsed request body
   let birthday = req.body.birthday;
@@ -60,15 +61,30 @@ app.post('/api/customers', upload.single('image'), (req, res) => {
   console.log(job);
   console.log(image);
   let params = [image, name, birthday, gender, job];
-  try{
+  try {
     connection.query(sql, params, (err, rows, fields) => {
-    res.send(rows);
-    console.log("Data inserted successfully");
-  })
-  } catch(error){
+      res.send(rows);
+      console.log("Data inserted successfully");
+    });
+  } catch (error) {
     console.error("데이터 베이스에 데이터가 안들어감. :  ", error);
   }
-  
 });
+
+app.delete('/api/customers/:id', (req, res) => {
+  let sql = 'UPDATE CUSTOMER SET isDeleted = 1 WHERE id = ?';
+  let params = [req.params.id];
+  try{
+    connection.query(sql, params, (err, rows, fields) => {
+      res.send(rows);
+    });
+  }catch(error){
+    console.log("데이터 삭제 부분 안됨: ",error);
+  }
+  
+
+
+});
+
 //동작 중인지 확인
 app.listen(port, () => console.log(`Listening on port ${port}`));
