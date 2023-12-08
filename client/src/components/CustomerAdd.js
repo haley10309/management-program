@@ -2,7 +2,7 @@ import React from "react";
 import post from "axios";
 
 class CustomerAdd extends React.Component {
-  constructor(props) {
+  constructor(props) { //생성자
     super(props);
     this.state = {
       file: null, //byte 형식
