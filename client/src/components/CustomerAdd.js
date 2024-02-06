@@ -66,7 +66,7 @@ class CustomerAdd extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleFormSubmit} encType="multipart/form-data">
+      <form class = "Add_form" onSubmit={this.handleFormSubmit} encType="multipart/form-data">
         <h1>고객추가</h1>
         프로필 이미지:{" "}
         <input
@@ -75,6 +75,7 @@ class CustomerAdd extends React.Component {
           value={this.state.fileName}
           onChange={this.handleFileChange}
         />
+        
         <br />
         이름 :{" "}
         <input
