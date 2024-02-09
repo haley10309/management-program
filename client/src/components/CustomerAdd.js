@@ -4,7 +4,7 @@ import post from "axios";
 class CustomerAdd extends React.Component {
   constructor(props) { //생성자
     super(props);
-    this.state = {
+    this.state = { //state : react에서 관리되는 동적 데이터
       file: null, //byte 형식
       userName: "",
       birthday: "",
@@ -13,7 +13,7 @@ class CustomerAdd extends React.Component {
       fileName: "", //파일 이름
     };
   }
-  handleFormSubmit = (e) => {
+  handleFormSubmit = (e) => { //super(props)하는 이유 -> react 메소드 불러오기 위해서
     e.preventDefault();
     this.addCustomer()
       .then((response) => {
