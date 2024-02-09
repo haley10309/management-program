@@ -21,13 +21,13 @@ const styles = (theme) => ({
   root: {
     width: "100%",
     overflowX: "auto",
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
   },
   table: {
     minWidth: 1080,
   },
   progress: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
 });
 class App extends Component {
